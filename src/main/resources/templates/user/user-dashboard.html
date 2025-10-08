@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/user-base}">
+<head>
+  <title>User Dashboard</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+
+        <!-- Profile Image -->
+        <div class="container text-center">
+          <img th:src="@{/img/contact-1.jpg}"
+               alt="Profile"
+               style="height:200px; width:200px; border-radius:50%; object-fit:cover;">
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-center mt-3 text-secondary font-italic">
+          Start Adding Contact on your cloud
+        </h1>
+
+        <!-- Add New Contact Button -->
+        <div class="text-center mb-3">
+          <a th:href="@{/user/contacts/add}" class="btn btn-primary">
+            ➕ Add New Contact
+          </a>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

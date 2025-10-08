@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/user-base}">
+<head>
+    <title>Add Contact</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="card shadow p-4">
+        <h2 class="text-primary">➕ Add New Contact</h2>
+        <hr>
+
+        <form th:action="@{/user/contacts/add}"
+              th:object="${contact}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label for="nameField" class="form-label">Name</label>
+                <input type="text"
+                       id="nameField"
+                       th:field="*{name}"
+                       class="form-control"
+                       placeholder="Enter contact name"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label for="emailField" class="form-label">Email</label>
+                <input type="email"
+                       id="emailField"
+                       th:field="*{email}"
+                       class="form-control"
+                       placeholder="Enter contact email"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneField" class="form-label">Phone</label>
+                <input type="number"
+                       id="phoneField"
+                       th:field="*{phone}"
+                       class="form-control"
+                       placeholder="Enter phone number"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label for="workField" class="form-label">Job Title</label>
+                <input type="text"
+                       id="workField"
+                       th:field="*{work}"
+                       class="form-control"
+                       placeholder="Enter job title">
+            </div>
+
+            <div class="mb-3">
+                <label for="descriptionField" class="form-label">Description</label>
+                <textarea id="descriptionField"
+                          th:field="*{description}"
+                          rows="5"
+                          class="form-control"
+                          placeholder="About the contact..."></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="imageField" class="form-label">Profile Image</label>
+                <input type="file"
+                       id="imageField"
+                       name="profileImage"
+                       class="form-control">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save Contact</button>
+                <button type="reset" class="btn btn-outline-secondary">Clear</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

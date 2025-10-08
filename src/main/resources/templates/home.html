@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/user-base}">
+<head>
+    <title>Dashboard Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="card p-5 shadow-lg border-0 bg-white">
+            <div class="card-body text-center">
+
+                <h1 class="display-4 fw-bold text-primary mb-3">
+                    Welcome Back, <span th:text="${user.name} ?: 'User'">Smart Contact User</span>!
+                </h1>
+
+                <p class="lead text-secondary mx-auto mb-4" style="max-width: 700px;">
+                    Your personal cloud for managing contacts efficiently. Use the sidebar to quickly access your contacts, add new entries, or update your profile settings.
+                </p>
+
+                <hr class="my-4">
+
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded shadow-sm">
+                            <h5 class="text-info">Total Contacts</h5>
+                            <p class="h2 fw-bold" th:text="${totalContacts ?: '0'}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <a th:href="@{/user/contacts/add}" class="btn btn-success btn-lg shadow-sm">
+                    <i class="fas fa-plus-circle me-2"></i> Add Your First Contact
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

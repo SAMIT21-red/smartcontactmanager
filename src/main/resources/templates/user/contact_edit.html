@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/user-base}">
+<head>
+  <title th:text="${title}">Update Contact</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+  <div th:if="${session.message}"
+       class="alert mt-2 mb-3"
+       th:classappend="${session.message.type}"
+       th:text="${session.message.content}">
+  </div>
+
+
+  <div class="card shadow p-4 m-3">
+    <h2 class="text-primary">✏️ Update Contact</h2>
+    <hr>
+
+    <form th:action="@{'/user/contacts/update/' + ${contact.cId}}"
+          th:object="${contact}"
+          method="post"
+          enctype="multipart/form-data">
+
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="secondName" class="form-label">Nick Name</label>
+        <input type="text" th:field="*{secondName}" class="form-control" id="secondName" placeholder="Enter Nickname">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="text" th:field="*{phone}" class="form-control" id="phone" placeholder="Enter phone">
+      </div>
+
+      <div class="mb-3">
+        <label for="work" class="form-label">Work</label>
+        <input type="text" th:field="*{work}" class="form-control" id="work" placeholder="Enter work">
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="profileImage" class="form-label">Profile Image</label>
+        <input type="file" name="profileImage" class="form-control" id="profileImage">
+        <div class="mt-2">
+          <p class="text-muted mb-1">Current Image:</p>
+          <img th:if="${contact.image != null}" th:src="@{'/uploads/' + ${contact.image}}" alt="Profile" width="100" height="100" style="border-radius: 50%; object-fit: cover;">
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Update Contact</button>
+        <a th:href="@{/user/contacts/view}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+
+</section>
+</body>
+</html>

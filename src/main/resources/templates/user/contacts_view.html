@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/user-base}">
+<head>
+    <title>My Contacts</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <!-- Success/Error Message -->
+    <div th:if="${message}" class="alert alert-success mt-2" th:text="${message}"></div>
+
+
+
+    <div class="card shadow p-4">
+        <h2 class="text-primary">📇 My Contacts</h2>
+        <hr>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Second Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c, stat : ${contacts}">
+                <td th:text="${stat.count}"></td>
+                <td>
+                    <!-- If the image is not default.png, load from /uploads -->
+                    <img th:if="${c.image != 'default.png'}"
+                         th:src="@{'/uploads/' + ${c.image}}"
+                         alt="Profile"
+                         width="50" height="50"
+                         style="object-fit: cover; border-radius: 50%;">
+
+                    <!-- If the image is default.png, load from /img -->
+                    <img th:if="${c.image == 'default.png'}"
+                         th:src="@{/img/default.png}"
+                         alt="Default"
+                         width="50" height="50"
+                         style="object-fit: cover; border-radius: 50%;">
+                </td>
+
+                <td>
+                    <a th:href="@{'/user/contacts/contact/' + ${c.cId}}" th:text="${c.name}"></a>
+                </td>
+
+                <td th:text="${c.secondName}"></td>
+                <td>
+                    <a th:href="@{'/user/contacts/contact/' + ${c.cId}}" th:text="${c.email}"></a>
+                </td>
+
+                <td th:text="${c.phone}"></td>
+
+                <td>
+                    <a th:href="@{'/user/contacts/delete/' + ${c.cId}}"
+                       class="btn btn-danger btn-sm delete-btn">
+                        Delete
+                    </a>
+
+                    <a th:href="@{'/user/contacts/edit/' + ${c.cId}}"
+                       class="btn btn-primary btn-sm">Update</a>
+                </td>
+
+                <td th:utext="${c.description}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{'/user/contacts/' + ${currentPage - 1}}" tabindex="-1">Prev</a>
+                </li>
+
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:if="${i >= (currentPage - 1) and i <= (currentPage + 2)}"
+                    th:classappend="${currentPage == i} ? 'active'">
+                    <a class="page-link" th:href="@{'/user/contacts/' + ${i}}" th:text="${i + 1}">1</a>
+                </li>
+
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{'/user/contacts/' + ${currentPage + 1}}">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+        <a th:href="@{/user/contacts/add}" class="btn btn-success">➕ Add Contact</a>
+    </div>
+
+
+
+</section>
+</body>
+</html>
